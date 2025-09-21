@@ -20,6 +20,7 @@ let app = express();
 app.use(cors());
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "./client/build")));
 
 app.listen(7777,()=>{
     console.log("listening to port 7777");
@@ -59,7 +60,10 @@ app.post("/signup",upload.single("profilePics"),async(req,res)=>{
     }
     
 });
-
+  
+app.get("*",()=>{
+  res.sendFile("./client/build/index.html");
+})
 
 let  connectedToMGDB = async ()=>{
     try {
